@@ -1,18 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 import UserForm from "./components/UserForm";
+import axios from 'axios';
 
 
 
 
 function App() {
 
+  const [repos, setRepos] = useState();
+
   const getUser=e=>{
     e.preventDefault();
     
     const user = e.target.elements.username.value;
-    console.log(user);
+    axios.get(`https://api.github.com/users/${user}`)
+    .then((res)=>{
+      const repos=res.data.public_repos;
+      console.log(repos);
+    })
+    
   }
 
 
